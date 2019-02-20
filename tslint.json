@@ -72,6 +72,9 @@
     "component-class-suffix": true,
     "directive-class-suffix": true,
     "no-trailing-whitespace": false,
-    "prefer-const":false
+    "prefer-const":false,
+
+    "variable-name":false,
+    "align":false
   }
 }
