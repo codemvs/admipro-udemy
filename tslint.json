@@ -75,6 +75,8 @@
     "prefer-const":false,
 
     "variable-name":false,
-    "align":false
+    "align":false,
+    "no-parameter-properties":false,
+    "no-any":false
   }
 }
