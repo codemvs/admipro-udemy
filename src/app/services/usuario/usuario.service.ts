@@ -18,6 +18,12 @@ export class UsuarioService {
     console.log(' Servicio del usuario listo ');
    }
   login(usuario: Usuario, recordar: boolean = false) {
+    
+    localStorage.removeItem('email');
+    if ( recordar ) {
+      localStorage.setItem('email', usuario.email);
+    }
+    
     let url = `${URL_SERVICIOS}/login`;
     return this.http.post( url, usuario).pipe(
       map( (resp: any) => {
@@ -27,7 +33,7 @@ export class UsuarioService {
         localStorage.setItem( 'usuario', JSON.stringify(resp.usuario) );
 
         return true;
-        
+
       })
     );
   }
