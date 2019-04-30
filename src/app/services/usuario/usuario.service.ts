@@ -11,12 +11,37 @@ import Swal from 'sweetalert2';
   providedIn: 'root'
 })
 export class UsuarioService {
+  usuario: Usuario;
+  token: string;
 
   constructor(
     public http: HttpClient
   ) {
     console.log(' Servicio del usuario listo ');
    }
+  
+   guardarStorage( id: string, token: string, usuario: Usuario) {
+        localStorage.setItem( 'id', id );
+        localStorage.setItem( 'token', token );
+        localStorage.setItem( 'usuario', JSON.stringify(usuario) );
+
+        this.usuario = usuario;
+        this.token = token;
+   }
+
+   loginGoogle(token: string) {
+
+    let url = `${URL_SERVICIOS}/login/google`;
+    return this.http.post(url, {token}).pipe(
+      map( (resp: any) => {
+        this.guardarStorage( resp.id, resp.token, resp.usuario);
+        return true;
+      })
+    );
+                
+
+   }
+
   login(usuario: Usuario, recordar: boolean = false) {
     
     localStorage.removeItem('email');
@@ -28,9 +53,8 @@ export class UsuarioService {
     return this.http.post( url, usuario).pipe(
       map( (resp: any) => {
         // grabar informacion en local storage
-        localStorage.setItem( 'id', resp.id );
-        localStorage.setItem( 'token', resp.token );
-        localStorage.setItem( 'usuario', JSON.stringify(resp.usuario) );
+
+        this.guardarStorage( resp.id, resp.token, resp.usuario);
 
         return true;
 
