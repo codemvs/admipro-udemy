@@ -1,0 +1,33 @@
+import { Pipe, PipeTransform } from '@angular/core';
+import { URL_SERVICIOS } from '../config/config';
+
+@Pipe({
+  name: 'imagen'
+})
+export class ImagenPipe implements PipeTransform {
+
+  transform(img: any, tipo: string = 'usuario'): any {
+
+    let url = `${URL_SERVICIOS}/img`;
+    let tiposValidos = [{tipo: 'usuario', valor: 'usuarios'},
+                       {tipo: 'medico', valor: 'medicos'},
+                        {tipo: 'hospital', valor: 'hospitales'}];
+    
+    if ( !img ) {
+      return `${url}/usuarios/xxx`;
+    }
+
+    if ( img.indexOf('https') >= 0 ) {
+      return img;
+    }
+    
+    let tipoSeleccionado = tiposValidos.find(e => e.tipo === tipo);
+    console.log('usr', tipoSeleccionado);
+    
+    if (!tipoSeleccionado) {
+      return `${url}/usuarios/xxx`;
+    }
+    return `${url}/${tipoSeleccionado.valor}/${img}`;
+  }
+
+}
