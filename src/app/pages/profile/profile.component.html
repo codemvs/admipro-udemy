@@ -5,19 +5,19 @@
                 <h4 class="card-title">Perfil del usuario</h4>
                 <h6 class="card-subtitle">Nombre usuario</h6>
 
-                <form class="form p-t-20">
+                <form ngNativeValidate #f="ngForm" (ngSubmit)="guardar( f.value )" class="form p-t-20">
                     <div class="form-group">
-                        <label for="exampleInputuname">User Name</label>
+                        <label for="exampleInputuname">Nombre de usuario</label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="ti-user"></i></div>
-                            <input class="form-control" id="exampleInputuname" placeholder="Username" type="text">
+                            <input [ngModel]="usuario.nombre" name="nombre" class="form-control" placeholder="Nombre de usuario" type="text" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
+                        <label for="exampleInputEmail1">Correo de usuario</label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="ti-email"></i></div>
-                            <input class="form-control" id="exampleInputEmail1" placeholder="Enter email" type="email">
+                            <input [ngModel]="usuario.email" name="email" class="form-control" placeholder="Correo del usuario" type="email" required>
                         </div>
                     </div>
 
@@ -39,7 +39,7 @@
                 <img src="">
                 <input type="file">
                 <br><br>
-                <button type="button" class="btn btn-success waves-effect waves-light m-r-10">
+                <button type="button" class="btn btn-block btn-success waves-effect waves-light m-r-10">
                     <i class="fa fa-save"></i>
                     Actualizar foto</button>
             </div>
