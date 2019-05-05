@@ -11,8 +11,7 @@ export class ImagenPipe implements PipeTransform {
     let url = `${URL_SERVICIOS}/img`;
     let tiposValidos = [{tipo: 'usuario', valor: 'usuarios'},
                        {tipo: 'medico', valor: 'medicos'},
-                        {tipo: 'hospital', valor: 'hospitales'}];
-    
+                       {tipo: 'hospital', valor: 'hospitales'}];    
     if ( !img ) {
       return `${url}/usuarios/xxx`;
     }
@@ -21,9 +20,8 @@ export class ImagenPipe implements PipeTransform {
       return img;
     }
     
-    let tipoSeleccionado = tiposValidos.find(e => e.tipo === tipo);
-    console.log('usr', tipoSeleccionado);
-    
+    let tipoSeleccionado = tiposValidos.find(item => item.tipo === tipo);
+        
     if (!tipoSeleccionado) {
       return `${url}/usuarios/xxx`;
     }
