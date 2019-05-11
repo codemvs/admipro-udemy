@@ -8,7 +8,10 @@ import { UsuarioService } from '../../services/services.index';
   styles: []
 })
 export class ProfileComponent implements OnInit {
+
   usuario: Usuario;
+  imagenSubir: File;
+
   constructor(
     public _usuarioService: UsuarioService
   ) { 
@@ -29,4 +32,16 @@ export class ProfileComponent implements OnInit {
         .subscribe();
   }
 
+  seleccionImagen( archivo: File ) {
+    if ( !archivo ) {
+      this.imagenSubir = null;
+      return;
+    }
+
+    this.imagenSubir = archivo;
+  } 
+  
+  cambiarImagen() {
+    this._usuarioService.cambiarImagen( this.imagenSubir, this.usuario._id );
+  }
 }
