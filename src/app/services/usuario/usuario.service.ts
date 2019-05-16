@@ -126,4 +126,16 @@ export class UsuarioService {
           
         });
    } 
+
+   cargarUsuarios( desde: number = 0) {
+    let url = `${URL_SERVICIOS}/usuario?desde${desde}`;
+    return this.http.get(url);
+   }
+
+   busquedaUsuarios( termino: string ) {
+    let url = `${URL_SERVICIOS}/busqueda/coleccion/usuarios/${termino}`;
+    return this.http.get( url ).pipe(
+      map( (resp: any) => resp.usuarios)
+    );
+   }
 }
