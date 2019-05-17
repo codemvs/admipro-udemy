@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../models/usuario.model';
 import { UsuarioService } from '../../services/services.index';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-usuarios',
@@ -56,4 +57,35 @@ export class UsuariosComponent implements OnInit {
     } );
   }
 
+  borrarUsuario( usuario: Usuario ) {
+  
+    if ( usuario._id === this._usuarioService.usuario._id ) {
+      Swal.fire('No puede borrar usuario', 'No se puede borrar a si mismo', 'error');
+      return;
+    }
+    
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You wont be able to revert this!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+            
+      if (result.value) {
+        this._usuarioService.borrarUsuario(usuario._id)
+        .subscribe( ( borrado: boolean ) => {
+          this.cargarUsuarios();
+        });
+      }
+    });
+  }
+  
+  guardarUsuario( usuario: Usuario ) {
+    console.log(usuario);
+    this._usuarioService.actualizarUsuario(usuario)
+    .subscribe();
+  }
 }
