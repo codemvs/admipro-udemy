@@ -1,25 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { SubirArchivoService } from 'src/app/services/services.index';
+import { ModalUploadService } from './modal-upload.service';
 
 @Component({
   selector: 'app-modal-upload',
   templateUrl: './modal-upload.component.html',
-  styles: []
+  styleUrls: []
 })
 export class ModalUploadComponent implements OnInit {
-  ocultar: string = '';
-
-
+  
   imagenSubir: File;
   imagenTemp: string;
-  
-  constructor() {
-    console.log('Modal Listo');
-    
-   }
 
+  constructor(
+    public _subirArchivoService: SubirArchivoService,
+    public _modalUploadService: ModalUploadService
+  ) { }
 
   ngOnInit() {
+  }
+
+  subirImagen() {
+    this._subirArchivoService.subirArchivo( this.imagenSubir, this._modalUploadService.tipo, this._modalUploadService.id )
+        .then( resp => { 
+          this._modalUploadService.notificacion.emit( resp );
+          this.cerrarModal();
+        })
+        .catch( err => {});
+  }
+
+  cerrarModal() {
+    this.imagenSubir = null;
+    this.imagenTemp = null;
+    this._modalUploadService.ocultarModal();
   }
 
   seleccionImagen( archivo: File ) {
@@ -42,10 +56,5 @@ export class ModalUploadComponent implements OnInit {
 
     render.onloadend = () => this.imagenTemp = render.result.toString();
   } 
-
-  subirImagen() {
-    console.log('oor');
-    
-  }
-
+  
 }

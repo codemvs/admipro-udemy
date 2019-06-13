@@ -20,11 +20,11 @@
     width: 70px;
 }
 
-.ocultar {
+.oculto {
     display: none;
 }
 
-.modal-fondo {
+.fondo-negro {
     background: rgba(0, 0, 0, 0.4);
     position: fixed;
     top: 0px;
