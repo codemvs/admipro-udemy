@@ -7,7 +7,8 @@ import { URL_SERVICIOS } from '../config/config';
 export class ImagenPipe implements PipeTransform {
 
   transform(img: any, tipo: string = 'usuario'): any {
-
+    console.log(img, tipo);
+    
     let url = `${URL_SERVICIOS}/img`;
     let tiposValidos = [{tipo: 'usuario', valor: 'usuarios'},
                        {tipo: 'medico', valor: 'medicos'},

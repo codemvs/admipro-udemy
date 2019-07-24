@@ -1,6 +1,9 @@
+import { Usuario } from './usuario.model';
+
 export class Hospital {
-    usuario: string;
-    nombre: string;    
-    img: string;
-    _id: string;
+    constructor(
+        public _id: string,
+        public nombre: string,
+        public usuario: Usuario
+    ) {}
 }
