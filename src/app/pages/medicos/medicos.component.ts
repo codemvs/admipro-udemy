@@ -16,9 +16,22 @@ export class MedicosComponent implements OnInit {
   ngOnInit() {
     this.cargarMedicos();
   }
-  cargarMedicos(){
+  cargarMedicos() {
     this._medicosService.cargarMedicos()
-    .subscribe(meicos => this.medicos = meicos);
+      .subscribe(meicos => this.medicos = meicos);
+  }
+
+  buscarMedico(termino: string) {
+    if (termino.length <= 0) {
+      this.cargarMedicos();
+      return false;
+    }
+    this._medicosService.buscarMedicos(termino).subscribe((medicos: any) => this.medicos = medicos);
+  }
+  borrarMedico(medico: Medico) {
+    this._medicosService.borrarMedico(medico._id).subscribe(
+      () => this.cargarMedicos()
+    );
   }
 
 }
