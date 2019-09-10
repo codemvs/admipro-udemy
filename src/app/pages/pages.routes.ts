@@ -13,26 +13,28 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { HospitalesComponent } from './hospitales/hospitales.component';
 import { MedicosComponent } from './medicos/medicos.component';
 import { MedicoComponent } from './medicos/medico.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 
 const pagesRoutes: Routes = [
     {
         path: '',
         component: PagesComponent,
-        canActivate: [ LoginGuardGuard ], // proteger rutas
+        canActivate: [LoginGuardGuard], // proteger rutas
         children: [
-            { path: 'dashboard', component: DashboardComponent, data: { titulo: 'Dashboard'} },
-            { path: 'progress', component: ProgressComponent, data: { titulo: 'Progres'}},
-            { path: 'graficas1', component: Graficas1Component, data: { titulo: 'Gráficas'}},
-            { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas'}},
-            { path: 'account-settings', component: AccoutSettingsComponent, data: { titulo: 'Ajustes del tema'}},
-            { path: 'perfil', component: ProfileComponent, data: { titulo: 'Perfil de usuario'}},
-            { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RXJS'}},
+            { path: 'dashboard', component: DashboardComponent, data: { titulo: 'Dashboard' } },
+            { path: 'progress', component: ProgressComponent, data: { titulo: 'Progres' } },
+            { path: 'graficas1', component: Graficas1Component, data: { titulo: 'Gráficas' } },
+            { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' } },
+            { path: 'account-settings', component: AccoutSettingsComponent, data: { titulo: 'Ajustes del tema' } },
+            { path: 'perfil', component: ProfileComponent, data: { titulo: 'Perfil de usuario' } },
+            { path: 'busqueda/:termino', component: BusquedaComponent, data: { titulo: 'Busqueda component' } },
+            { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RXJS' } },
             // Manteniminetos
-            { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Mantenimiento de usuarios'}},
-            { path: 'hospitales', component: HospitalesComponent, data: { titulo: 'Mantenimiento de hospitales'}},
-            { path: 'medicos', component: MedicosComponent, data: { titulo: 'Mantenimiento de medicos'}},
-            { path: 'medico/:id', component: MedicoComponent, data: { titulo: 'Actualizar medico'}},
-            {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+            { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Mantenimiento de usuarios' } },
+            { path: 'hospitales', component: HospitalesComponent, data: { titulo: 'Mantenimiento de hospitales' } },
+            { path: 'medicos', component: MedicosComponent, data: { titulo: 'Mantenimiento de medicos' } },
+            { path: 'medico/:id', component: MedicoComponent, data: { titulo: 'Actualizar medico' } },
+            { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
         ]
     }
 ];
