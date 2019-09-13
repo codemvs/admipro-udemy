@@ -29,8 +29,11 @@ export class SidebarService {
   //   }
   // ];
   constructor(public _usuarioService: UsuarioService) { 
-    this.menu = _usuarioService.menu;
-    console.log(this.menu);
+    
+    
+  }
+  cargarMenu() {
+    this.menu = this._usuarioService.menu;
     
   }
 }

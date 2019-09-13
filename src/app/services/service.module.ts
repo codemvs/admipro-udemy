@@ -13,6 +13,7 @@ import {
   HospitalService,
   MedicoService
  } from './services.index';
+import { AdminGuard } from './guards/admin.guard';
 
 @NgModule({
   declarations: [],
@@ -26,6 +27,7 @@ import {
     SidebarService,
     UsuarioService,
     LoginGuardGuard,
+    AdminGuard,
     SubirArchivoService,
     ModalUploadService,
     HospitalService,

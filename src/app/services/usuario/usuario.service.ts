@@ -52,6 +52,7 @@ export class UsuarioService {
   loguout() {
     this.usuario = null;
     this.token = '';
+    this.menu = [];
 
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');

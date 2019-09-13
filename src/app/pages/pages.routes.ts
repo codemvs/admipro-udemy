@@ -1,7 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { RxjsComponent } from './rxjs/rxjs.component';
 
-import { LoginGuardGuard } from '../services/services.index';
+import { LoginGuardGuard, AdminGuard } from '../services/services.index';
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
@@ -30,7 +30,12 @@ const pagesRoutes: Routes = [
             { path: 'busqueda/:termino', component: BusquedaComponent, data: { titulo: 'Busqueda component' } },
             { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RXJS' } },
             // Manteniminetos
-            { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Mantenimiento de usuarios' } },
+            {
+                path: 'usuarios',
+                component: UsuariosComponent,
+                canActivate: [AdminGuard],
+                data: { titulo: 'Mantenimiento de usuarios' }
+            },
             { path: 'hospitales', component: HospitalesComponent, data: { titulo: 'Mantenimiento de hospitales' } },
             { path: 'medicos', component: MedicosComponent, data: { titulo: 'Mantenimiento de medicos' } },
             { path: 'medico/:id', component: MedicoComponent, data: { titulo: 'Actualizar medico' } },
