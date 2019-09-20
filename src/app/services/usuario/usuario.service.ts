@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../../models/usuario.model';
 import { HttpClient } from '@angular/common/http';
+
+import { map, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs/internal/Observable';
+
 import { URL_SERVICIOS } from '../../config/config';
-import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
+import { throwError } from 'rxjs';
 
 
 
@@ -43,7 +47,7 @@ export class UsuarioService {
     localStorage.setItem('token', token);
     localStorage.setItem('usuario', JSON.stringify(usuario));
     localStorage.setItem('menu', JSON.stringify(menu));
-        
+
     this.usuario = usuario;
     this.token = token;
     this.menu = menu;
@@ -90,17 +94,25 @@ export class UsuarioService {
 
         return true;
 
+      }),
+      catchError((err: any) => {
+        Swal.fire('Error en el login', err.error.mensaje, 'error');
+        return throwError(':)');
       })
     );
+
   }
   crearUsuario(usuario: Usuario) {
     let url = URL_SERVICIOS + '/usuario';
 
     return this.http.post(url, usuario).pipe(
       map((resp: any) => {
-
         Swal.fire('Usuario creado', usuario.email, 'success');
         return resp.usuario;
+      }),
+      catchError((err: any) => {         
+        Swal.fire(err.error.mensaje, err.error.erros.message, 'error');
+        return throwError(':)');
       })
     );
 
@@ -118,6 +130,11 @@ export class UsuarioService {
         // this.usuario = resp.usuario;
         Swal.fire('Usuario actualizado', usuario.email, 'success');
         return true;
+      }),
+      catchError((err: any) => {   
+        console.log(err);
+        Swal.fire(err.error.mensaje, err.error.errors.message, 'error');
+        return throwError(':)');
       })
     );
   }
@@ -130,10 +147,6 @@ export class UsuarioService {
         this.usuario.img = resp.usuario.img;
         Swal.fire('Imagen actualizado', this.usuario.nombre, 'success');
         this.guardarStorage(id, this.token, this.usuario, this.menu);
-      })
-      .catch((err: any) => {
-        console.log(err);
-
       });
   }
 
